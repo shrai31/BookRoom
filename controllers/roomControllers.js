@@ -4,17 +4,33 @@ import ErrorHandler from '../utils/errorHandler';
 import catchAsyncErrors from '../middlewares/carchAsyncErrors';
 import APIFeatures from '../utils/apiFeatures';
 
-
 // Create all rooms   =>   /api/rooms
 const allRooms = catchAsyncErrors(async (req, res) => {
 
-  const apiFeatures = new APIFeatures(Room.find(), req.query).search();
+  const resPerPage = 4;
 
-  const allRoom = await apiFeatures.query;
+  const roomsCount = await Room.countDocuments();
 
-  // const allRoom = await Room.find();
-  res.status(200).json({ sucess: true, count: allRoom.length, allRoom });
-});
+  const apiFeatures = new APIFeatures(Room.find(), req.query)
+      .search()
+      .filter()
+      let rooms = await apiFeatures.query;
+      // let filteredRoomsCount = rooms.length;
+      
+      // apiFeatures.pagination(resPerPage)
+      // console.log({rooms},"apiFeatures.pagination(resPerPage)",apiFeatures.pagination(resPerPage))
+      // rooms = await apiFeatures.query;
+
+      
+  res.status(200).json({
+      success: true,
+      roomsCount: rooms.length,
+      resPerPage,
+      // filteredRoomsCount,
+      rooms
+  })
+
+})
 
 // Create new room   =>   /api/rooms
 const newRooms = catchAsyncErrors(async (req, res) => {
