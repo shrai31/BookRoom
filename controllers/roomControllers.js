@@ -1,36 +1,25 @@
 import Room from '../models/room';
 
+import ErrorHandler from '../utils/errorHandler';
+import catchAsyncErrors from '../middlewares/carchAsyncErrors';
+
 // Create all rooms   =>   /api/rooms
-const allRooms = async (req, res) => {
-  try {
-    const allRoom = await Room.find();
-    res.status(200).json({ sucess: true, count: allRoom.length, allRoom });
-  } catch (error) {
-    res.status(400).json({
-      success: false,
-      error: error.message,
-    });
-  }
-  res
-    .status(200)
-    .json({ name: 'Himanshu', success: true, message: 'All Rooms' });
-};
+const allRooms = catchAsyncErrors(async (req, res) => {
+  const allRoom = await Room.find();
+  res.status(200).json({ sucess: true, count: allRoom.length, allRoom });
+});
 
 // Create new room   =>   /api/rooms
-const newRooms = async (req, res) => {
-  try {
-    const room = await Room.create(req.body);
-    res.status(200).json({
-      success: true,
-      room,
-    });
-  } catch (error) {
-    // res.status(404).json({ success: false, error: error.message });
-  }
-};
+const newRooms = catchAsyncErrors(async (req, res) => {
+  const room = await Room.create(req.body);
+  res.status(200).json({
+    success: true,
+    room,
+  });
+});
 
 // Get room details   =>   /api/rooms/:id
-const getSingleRoom = async (req, res, next) => {
+const getSingleRoom = catchAsyncErrors(async (req, res, next) => {
   const room = await Room.findById(req.query.id); //in nextjs we don;t have params we have query
 
   if (!room) {
@@ -41,10 +30,10 @@ const getSingleRoom = async (req, res, next) => {
     success: true,
     room,
   });
-};
+});
 
 // Update room details   =>   /api/rooms/:id
-const updateRoom = async (req, res) => {
+const updateRoom = catchAsyncErrors(async (req, res) => {
   let room = await Room.findById(req.query.id); // use let because in room we resign value in line 91
 
   if (!room) {
@@ -88,10 +77,10 @@ const updateRoom = async (req, res) => {
     success: true,
     room,
   });
-};
+});
 
 // Delete room   =>   /api/rooms/:id
-const deleteRoom = async (req, res) => {
+const deleteRoom = catchAsyncErrors(async (req, res) => {
   const room = await Room.findById(req.query.id);
 
   if (!room) {
@@ -109,6 +98,6 @@ const deleteRoom = async (req, res) => {
     success: true,
     message: 'Room is deleted.',
   });
-};
+});
 
 export { allRooms, newRooms, getSingleRoom, updateRoom, deleteRoom };

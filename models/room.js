@@ -51,11 +51,11 @@ const roomSchema = mongoose.Schema({
   },
   ratings: {
     type: Number,
-    required: 0,
+    // required: 0,
   },
   noOfReviews: {
     type: Number,
-    required: 0,
+    // required: 0,
   },
   images: [
     {
