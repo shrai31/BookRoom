@@ -2,10 +2,17 @@ import Room from '../models/room';
 
 import ErrorHandler from '../utils/errorHandler';
 import catchAsyncErrors from '../middlewares/carchAsyncErrors';
+import APIFeatures from '../utils/apiFeatures';
+
 
 // Create all rooms   =>   /api/rooms
 const allRooms = catchAsyncErrors(async (req, res) => {
-  const allRoom = await Room.find();
+
+  const apiFeatures = new APIFeatures(Room.find(), req.query).search();
+
+  const allRoom = await apiFeatures.query;
+
+  // const allRoom = await Room.find();
   res.status(200).json({ sucess: true, count: allRoom.length, allRoom });
 });
 
