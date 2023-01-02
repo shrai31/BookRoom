@@ -1,5 +1,7 @@
 import Home from '../components/Home';
 import Layout from '../components/layout/Layout';
+import { getRooms } from '../redux/actions/roomActions';
+import { wrapper } from '../redux/store';
 
 export default function Index() {
   return (
@@ -10,3 +12,10 @@ export default function Index() {
     </>
   );
 }
+
+export const getServerSideProps = wrapper.getServerSideProps((store) =>
+  //@ts-ignore-
+  async ({ req, res }) => {
+    await store.dispatch(getRooms(req));
+  }
+);
