@@ -11,40 +11,43 @@ import {
 
 //Get all rooms
 
-export const getRooms = (req) => async (dispatch) => {
-  try {
-    const { origin } = absoluteUrl(req);
-    const { data } = await axios.get(`${origin}/api/rooms`);
-    dispatch({
-      type: ALL_ROOMS_SUCCESS,
-      payload: data,
-    });
-  } catch (error) {
-    dispatch({
-      type: ALL_ROOMS_FAIL,
-      payload: error.response.data.message,
-    });
-  }
-};
-
-
-//Get all room Details
-
-export const getRoomDetails = (req, id) => async (dispatch) => {
+export const getRooms =
+  (req, currentPage = 1) =>
+  async (dispatch) => {
     try {
       const { origin } = absoluteUrl(req);
-      const { data } = await axios.get(`${origin}/api/rooms/${id}`);
+      const { data } = await axios.get(
+        `${origin}/api/rooms?page=${currentPage}`
+      );
       dispatch({
-        type: ROOMS_DETAILS_SUCCESS,
+        type: ALL_ROOMS_SUCCESS,
         payload: data,
       });
     } catch (error) {
       dispatch({
-        type: ROOMS_DETAILS_FAIL,
+        type: ALL_ROOMS_FAIL,
         payload: error.response.data.message,
       });
     }
   };
+
+//Get all room Details
+
+export const getRoomDetails = (req, id) => async (dispatch) => {
+  try {
+    const { origin } = absoluteUrl(req);
+    const { data } = await axios.get(`${origin}/api/rooms/${id}`);
+    dispatch({
+      type: ROOMS_DETAILS_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: ROOMS_DETAILS_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
 
 // Clear Errors
 
