@@ -19,7 +19,6 @@ const allRooms = catchAsyncErrors(async (req, res) => {
       let filteredRoomsCount = rooms.length;
       
        apiFeatures.pagination(resPerPage)
-      // console.log({rooms},"apiFeatures.pagination(resPerPage)",apiFeatures.pagination(resPerPage))
       rooms = await apiFeatures.query;
 
       

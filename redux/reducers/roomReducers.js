@@ -37,7 +37,7 @@ export const roomsDetailsReducer = (state = initialStateRoom, action) => {
   switch (action.type) {
     case ROOMS_DETAILS_SUCCESS:
       return {
-        rooms: action.payload,
+        room: action.payload,
       };
     case ROOMS_DETAILS_FAIL:
       return {

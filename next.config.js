@@ -6,6 +6,6 @@ module.exports = {
   },
   images: {
     // domains: ['res.cloudinary.com'],
-    domains: ['a0.muscache.com']
+    domains: ['a0.muscache.com', 'imgs.search.brave.com']
   },
 };
