@@ -1,6 +1,8 @@
 import {
   ALL_ROOMS_FAIL,
   ALL_ROOMS_SUCCESS,
+  ROOMS_DETAILS_FAIL,
+  ROOMS_DETAILS_SUCCESS,
   CLEAR_ERRORS,
 } from '../constants/roomConstants';
 
@@ -21,6 +23,29 @@ export const allRoomsReducer = (state = initialState, action) => {
       };
     case CLEAR_ERRORS:
       return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+
+//Room Detail reducer
+const initialStateRoom = { room: {} };
+export const roomsDetailsReducer = (state = initialStateRoom, action) => {
+  switch (action.type) {
+    case ROOMS_DETAILS_SUCCESS:
+      return {
+        rooms: action.payload,
+      };
+    case ROOMS_DETAILS_FAIL:
+      return {
+        error: action.payload,
+      };
+    case CLEAR_ERRORS:
+      return {
+        ...state,
         error: null,
       };
     default:

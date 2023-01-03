@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import React from 'react';
 
 const Header = () => {
@@ -6,10 +7,12 @@ const Header = () => {
       <div className="container">
         <div className="col-3 p-0">
           <div className="navbar-brand">
-            <img
+            <Image
               style={{ cursor: 'pointer' }}
-              src="./images/bookit_logo.png"
+              src="/images/bookit_logo.png"
               alt="BookIT"
+              width={75}
+              height={30}
             />
           </div>
         </div>
