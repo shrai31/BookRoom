@@ -5,16 +5,17 @@ import { clearErrors } from '../redux/actions/roomActions';
 import RoomItem from './room/RoomItem';
 import Pagination from 'react-js-pagination';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 const Home = () => {
   const dispatch = useDispatch();
-  const router = useRouter()
+  const router = useRouter();
   const { rooms, resPerPage, roomCount, filteredRoomsCount, error } =
     useSelector((state) => state.allRooms);
 
   let { location, page = 1 } = router.query;
   page = Number(page);
-console.log("roomCount=>",{roomCount})
+  console.log('roomCount=>', { roomCount });
   useEffect(() => {
     toast.success('Success!');
     dispatch(clearErrors());
@@ -43,15 +44,19 @@ console.log("roomCount=>",{roomCount})
   return (
     <>
       <section id="rooms" className="container mt-5">
-        <h2 className="mb-3 ml-2 stays-heading">Stays in New York</h2>
+        <h2 className="mb-3 ml-2 stays-heading">
+          {location ? `Rooms in ${location}` : 'All rooms'}
+        </h2>
 
-        <a href="#" className="ml-2 back-to-search">
+        <Link href="/search">
           {' '}
-          <i className="fa fa-arrow-left"></i> Back to Search
-        </a>
+          <a className="ml-2 back-to-search">
+            <i className="fa fa-arrow-left"></i> Back to Search
+          </a>
+        </Link>
         <div className="row">
           {rooms && rooms.length === 0 ? (
-            <div className="alert.alert-danger">
+            <div className="alert.alert-danger mt-5 w-100">
               <b>No Rooms Found.</b>
             </div>
           ) : (
