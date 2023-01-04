@@ -16,7 +16,8 @@ export const getRooms =
   async (dispatch) => {
     try {
       const { origin } = absoluteUrl(req);
-      let link = `${origin}/api/rooms?page=${currentPage}$location=${location}`
+      let link = `${origin}/api/rooms?page=${currentPage}`;
+      if (location)  link= `${origin}/api/rooms?page=${currentPage}$location=${location}`;
       if(guests) link=link.concat(`&guestCapacity=${guests}`)
       if(category) link=link.concat(`&category=${category}`)
       const { data } = await axios.get(link);

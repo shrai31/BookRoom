@@ -48,11 +48,11 @@ const Home = () => {
           {location ? `Rooms in ${location}` : 'All rooms'}
         </h2>
 
-        <Link href="/search">
+        <Link href="/search" className="ml-2 back-to-search">
           {' '}
-          <a className="ml-2 back-to-search">
+          {/* <a > */}
             <i className="fa fa-arrow-left"></i> Back to Search
-          </a>
+          {/* </a> */}
         </Link>
         <div className="row">
           {rooms && rooms.length === 0 ? (
